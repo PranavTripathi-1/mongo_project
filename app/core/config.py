@@ -1,11 +1,12 @@
 # app/core/config.py
+import os
+from dotenv import load_dotenv
 
-from pymongo import MongoClient
+# Load .env if it exists
+load_dotenv()
 
-MONGO_URI = "mongodb://localhost:27017/"
-DB_NAME = "my_database"
-COLLECTION_NAME = "my_collection"
+class Settings:
+    MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+    DB_NAME: str = os.getenv("DB_NAME", "testdb")
 
-client = MongoClient(MONGO_URI)
-db = client[DB_NAME]
-collection = db[COLLECTION_NAME]
+settings = Settings()
